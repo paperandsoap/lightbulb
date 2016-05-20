@@ -1,6 +1,9 @@
+{% if ansible_os_family == "RedHat" %}
+{% set os_in_url = "rhel" %}
+{% endif %}
 [influxdb]
-name = InfluxDB Repository - CentOS $releasever
-baseurl = https://s3.amazonaws.com/ansible-training-resources/influxdb
+name = InfluxDB Repository - {% if os_in_url is defined %}{{ os_in_url | upper }}{% else %}{{ ansible_os_family }}{% endif %} \$releasever
+baseurl = https://repos.influxdata.com/{% if os_in_url is defined %}{{ os_in_url | lower }}{% else %}{{ ansible_os_family | lower }}{% endif %}/\$releasever/\$basearch/stable
 enabled = 1
 gpgcheck = 1
-gpgkey = https://s3.amazonaws.com/ansible-training-resources/influxdb/influxdb.key
+gpgkey = https://repos.influxdata.com/influxdb.key
