@@ -9,14 +9,14 @@
 
 - name: install telegraf
   yum:
-    name: telegraf-{{ telegraf_version }}
-    state: present
+    name: telegraf
+    state: latest
   notify: restart telegraf
 
 - name: configure telegraf
   template:
     src: telegraf.conf.j2
-    dest: /etc/opt/telegraf/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
   notify: restart telegraf
 
 - name: start telegraf
